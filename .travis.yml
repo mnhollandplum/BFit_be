@@ -7,4 +7,4 @@ virtualenv:
 install:
   - pip install --user -r requirements.txt
   - pip install .
-script: echo "What tests?"
+script: echo "Hey guys im trying a thing!"
