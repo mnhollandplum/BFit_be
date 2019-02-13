@@ -1,14 +1,27 @@
-sudo: false
-language: python
-python:
-  - 2.7
-  - 3.4
-  - 3.5
-  - 3.6
-
-before_script:
-  - export FLASK_DEBUG=1
-  - easy_install distribute
-  - pip install -r requirements.txt
-script:
-  # flask test
+matrix:
+  include:
+  - language: c
+    compiler:
+    - gcc
+    before_script:
+    - cd c
+    script:
+    - make
+  - language: python
+    services: postgresql
+    python:
+    - '3.3'
+    - '3.5'
+    - '3.6'
+    before_script:
+    - cd python
+    before_install:
+    - export PIP_USE_MIRRORS=true
+    install:
+    - easy_install distribute
+    - pip install -r requirements.txt
+    before_script:
+    - psql -c "CREATE DATABASE jobsdb;" -U bklo
+    script:
+    # change later
+    - python root_route.py runserver"
