@@ -1,12 +1,5 @@
 matrix:
   include:
-  - language: c
-    compiler:
-    - gcc
-    before_script:
-    - cd c
-    script:
-    - make
   - language: python
     services: postgresql
     python:
@@ -20,8 +13,6 @@ matrix:
     install:
     - easy_install distribute
     - pip install -r requirements.txt
-    before_script:
-    - psql -c "CREATE DATABASE jobsdb;" -U bklo
     script:
     # change later
     - python root_route.py runserver"
