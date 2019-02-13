@@ -1,15 +1,8 @@
-sudo: required
 language: python
-dist: xenial
 python:
-  - 2.7
-  - 3.7
-services:
-  - redis
-env:
-  - FLASK=1.0.2
-  - FLASK=0.10.1
+  - "3.6"
+cache: pip
 install:
-  - pip install -q Flask==$FLASK
-  - pip install -q -r requirements.txt
-  - pip install -q -e .
+  - pip install -r requirements.txt
+script:
+  - python tests.py
