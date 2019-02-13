@@ -14,9 +14,7 @@ class User(db.Model):
     avatar = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
-
-    def __repr__(self):
-        return f"User('{self.username}, {self.email}, {self.avatar}')"
+    comments = db.relationship('Comment', backref='author', lazy=True)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,9 +22,6 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.String(20))
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f"Post('{self.content}')"
 
 if __name__ == '__main__':
     app.run(debug=True)
