@@ -1,7 +1,7 @@
 language: python
 python:
   - "3.6"
-virtualenv:
- system_site_packages: true
-install: "pip install -r requirements.txt"
-# command to run tests
+before install:
+  - "pip freeze > requirements.txt"
+install:
+  - "pip install -r requirements.txt"
