@@ -5,7 +5,6 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from IPython import embed
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/bfit'
 db = SQLAlchemy(app)
@@ -38,6 +37,17 @@ def add_user():
     user = User(request.form)
     db.session.add(user)
     db.session.commit()
+    response = {'user': {
+    'id': user.id,
+    'username': user.username,
+    'email': user.email,
+    'avatar': user.avatar
+    }}
+    return jsonify(response)
+
+@app.route('/api/v1/users/<id>', methods=['GET'])
+def get_user(id):
+    user = User.query.filter_by(id=id).first_or_404()
     response = {'user': {
     'id': user.id,
     'username': user.username,
