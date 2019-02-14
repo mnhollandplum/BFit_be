@@ -112,6 +112,7 @@ pep8==1.7.1
 pexpect==4.5.0
 pickleshare==0.7.4
 Pillow==5.1.0
+pipenv==2018.11.26
 pkginfo==1.4.2
 pluggy==0.6.0
 ply==3.11
@@ -176,6 +177,8 @@ traitlets==4.3.2
 typing==3.6.4
 unicodecsv==0.14.1
 urllib3==1.22
+virtualenv==16.4.0
+virtualenv-clone==0.5.1
 wcwidth==0.1.7
 webencodings==0.5.1
 Werkzeug==0.14.1
