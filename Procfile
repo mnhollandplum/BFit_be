@@ -1,1 +1,1 @@
-web: gunicorn app: BFit_be
+web: flask db upgrade; gunicorn app:routes
