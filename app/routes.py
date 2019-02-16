@@ -16,8 +16,8 @@ def index():
 @app.route('/api/v1/users', methods=['POST', 'GET'])
 def add_user():
     user = User(request.form)
-    # db.session.add(user)
-    # db.session.commit()
+    db.session.add(user)
+    db.session.commit()
     response = {'user': {
     'id': user.id,
     'username': user.username,
