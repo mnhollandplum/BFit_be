@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn app:routes
+web: flask db upgrade; flask translate compile; gunicorn bfit:app
