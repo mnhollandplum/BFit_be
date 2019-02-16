@@ -39,8 +39,6 @@ def hello():
 @app.route('/api/v1/users', methods=['POST'])
 def add_user():
     user = User(request.form)
-    db.session.add(user)
-    db.session.commit()
     response = {'user': {
     'id': user.id,
     'username': user.username,

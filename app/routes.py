@@ -1,6 +1,12 @@
+from datetime import datetime
+
 from app import app
-from flask import Flask
+from app import db
+from app.models import User
+from app.models import Post
+from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask import request
 
 @app.route('/')
 @app.route('/index')
@@ -10,8 +16,8 @@ def index():
 @app.route('/api/v1/users', methods=['POST'])
 def add_user():
     user = User(request.form)
-    db.session.add(user)
-    db.session.commit()
+    # db.session.add(user)
+    # db.session.commit()
     response = {'user': {
     'id': user.id,
     'username': user.username,
