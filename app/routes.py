@@ -13,7 +13,7 @@ from flask import request
 def index():
     return "Welcome to the BFit API. Check out our Github for instructions on accessing our endpoints"
 
-@app.route('/api/v1/users', methods=['POST'])
+@app.route('/api/v1/users', methods=['POST', 'GET'])
 def add_user():
     user = User(request.form)
     # db.session.add(user)
