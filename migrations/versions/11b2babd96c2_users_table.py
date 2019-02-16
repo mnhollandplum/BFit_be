@@ -1,7 +1,7 @@
 """users table
 
 Revision ID: 11b2babd96c2
-Revises: 
+Revises:
 Create Date: 2019-02-15 22:59:23.183859
 
 """

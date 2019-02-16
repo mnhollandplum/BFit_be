@@ -1,12 +1,12 @@
 from datetime import datetime
-from flask import Flask, render_template, request
-from flask import request
+
+from app import app
+from app import db
+from app.models import User
+from app.models import Post
 from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
-from IPython import embed
-from flask.ext.sqlalchemy import SQLAlchemy
 
-from flask.ext.heroku import Heroku
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/bfit'
