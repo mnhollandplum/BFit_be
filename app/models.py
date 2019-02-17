@@ -1,10 +1,9 @@
 from app import db
 from datetime import datetime
 
-
 class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(200), unique=True, nullable=False)
     email = db.Column(db.String(200), unique=True, nullable=False)
     avatar = db.Column(db.String(200), nullable=False, default='default.jpg')
@@ -20,6 +19,7 @@ class User(db.Model):
         return f"<User: {self.id}"
 
 class Post(db.Model):
+    __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(20))
     description = db.Column(db.String(120))
