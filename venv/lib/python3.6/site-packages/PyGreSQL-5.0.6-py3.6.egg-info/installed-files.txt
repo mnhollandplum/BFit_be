@@ -1,0 +1,10 @@
+../__pycache__/pg.cpython-36.pyc
+../__pycache__/pgdb.cpython-36.pyc
+../_pg.cpython-36m-darwin.so
+../pg.py
+../pgdb.py
+PKG-INFO
+SOURCES.txt
+dependency_links.txt
+not-zip-safe
+top_level.txt
