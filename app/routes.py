@@ -15,7 +15,7 @@ def index():
 
 @app.route('/api/v1/users', methods=['POST', 'GET'])
 def add_user():
-    user = User(request.form)
+    user = User.query.filter_by(id=id).first_or_404()
     db.session.add(user)
     db.session.commit()
     response = {'user': {
