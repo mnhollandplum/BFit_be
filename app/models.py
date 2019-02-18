@@ -3,6 +3,11 @@ from datetime import datetime
 from IPython import embed
 
 
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+)
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -10,10 +15,8 @@ class User(db.Model):
     email = db.Column(db.String(200), unique=True, nullable=False)
     avatar = db.Column(db.String(200), nullable=False, default='default.jpg')
     password = db.Column(db.String(200), nullable=False)
-    followers = db.Table('followers',
-        db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-        db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
-    )
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
+
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
@@ -38,14 +41,16 @@ class User(db.Model):
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
-    def __init__ (self, data):
-        self.username = data['username']
-        self.email = data['email']
-        self.avatar = data['avatar']
-        self.password = data['password']
+
+    def __init__ (self, username,email,avatar,password):
+        self.username = username
+        self.email = email
+        self.avatar = avatar
+        self.password = password
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
 
 
 
@@ -57,7 +62,7 @@ class Post(db.Model):
     image_url = db.Column(db.String(120))
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     post_type = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return '<Post {}>'.format(self.title)

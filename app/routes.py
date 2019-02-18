@@ -24,18 +24,18 @@ def add_user():
         return bad_request("A username must be unique.")
     if User.query.filter_by(email=user_data['email']).first():
         return bad_request("An email must be unique.")
-    # else:
-    #     user = User(user_data)
-    #     db.session.add(user)
-    #     db.session.commit()
-    #     response = {
-    #         'user': {
-    #             'id': user.id,
-    #             'username': user.username,
-    #             'email': user.email,
-    #             'avatar': user.avatar
-    #         }
-    #     }
+    else:
+        user = User(user_data)
+        db.session.add(user)
+        db.session.commit()
+        response = {
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'avatar': user.avatar
+            }
+        }
         return jsonify(response)
 
 
@@ -50,10 +50,9 @@ def get_user(id):
     }}
     return jsonify(response)
 
-if __name__ == '__main__':
-  app.run(debug=True)
 
-@app.route('/follow/<username>')
+
+@app.route('/api/v1/follow/<username>')
 # @login_required
 def follow(username):
     user = User.query.filter_by(username=username).first()
@@ -68,7 +67,7 @@ def follow(username):
     flash('You are following {}!'.format(username))
     return redirect(url_for('user', username=username))
 
-@app.route('/unfollow/<username>')
+@app.route('/api/v1/unfollow/<username>')
 # @login_required
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
@@ -82,3 +81,6 @@ def unfollow(username):
     db.session.commit()
     flash('You are not following {}.'.format(username))
     return redirect(url_for('user', username=username))
+
+if __name__ == '__main__':
+  app.run(debug=True)
