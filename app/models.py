@@ -1,8 +1,10 @@
 from app import db
 from datetime import datetime
+from IPython import embed
+
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(200), unique=True, nullable=False)
     email = db.Column(db.String(200), unique=True, nullable=False)
@@ -16,7 +18,7 @@ class User(db.Model):
         self.password = data['password']
 
     def __repr__(self):
-        return f"<User: {self.id}"
+        return '<User {}>'.format(self.username)
 
 class Post(db.Model):
     __tablename__ = 'post'
