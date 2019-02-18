@@ -1,6 +1,7 @@
 from app import db
 from datetime import datetime
 from IPython import embed
+from passlib.apps import custom_app_context as pwd_context
 
 
 followers = db.Table('followers',
@@ -40,6 +41,12 @@ class User(db.Model):
                 followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
+
+    def hash_password(self, password):
+        self.password = pwd_context.encrypt(password)
+
+    def verify_password(self, password):
+        return pwd_context.verify(password, self.password)
 
 
     def __init__ (self, username,email,avatar,password):
