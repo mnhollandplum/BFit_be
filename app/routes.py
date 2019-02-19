@@ -6,6 +6,7 @@ from app.models import Post
 from app.models import Meal
 from app.models import Food
 from app.models import Exercise
+from app.models import mealfoods
 from app.error import bad_request
 from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
@@ -99,6 +100,7 @@ def add_post():
         if 'muscle_group' in post_data:
             post = Post(post_data)
             db.session.add(post)
+            db.session.commit()
             exercise = Exercise(post_data, post.id)
             db.session.add(exercise)
             db.session.commit()
@@ -133,9 +135,11 @@ def add_post():
             foods = post_data['meal']['foods']
             food_obs = []
             for i, x in enumerate(foods, start=0):
-                food=Food(foods[i])
+                food = Food(foods[i])
                 food_obs.append(food)
                 db.session.add(food)
+                db.session.commit()
+                meal.foods.append(food)
                 db.session.commit()
             response = {
                 'post': {
@@ -158,6 +162,59 @@ def add_post():
             return jsonify(response)
         else:
             return bad_request("A post title is required.")
+
+@app.route('/api/v1/posts/<id>', methods=['GET'])
+def get_post(id):
+    post = Post.query.filter_by(id=id).first_or_404()
+    if post.meals.all() == []:
+        exercise = Exercise.query.filter_by(post_id=post.id).first()
+        response = {
+            'post': {
+                'id': post.id,
+                'title': post.title,
+                'description': post.description,
+                'image_url': post.image_url,
+                'user_id': post.user_id,
+                'date': post.date,
+                'post_type': 'exercise',
+                'exercise': {
+                    'id': exercise.id,
+                    'muscle_group': exercise.muscle_group,
+                    'name': exercise.name,
+                    'reps': exercise.reps,
+                    'weight': exercise.weight,
+                    'time': exercise.time,
+                    'distance': exercise.distance
+                }
+            }
+        }
+        return jsonify(response)
+    else:
+        meal = Meal.query.filter_by(post_id=post.id).first()
+        food_obs = meal.foods
+        response = {
+            'post': {
+                'id': post.id,
+                'title': post.title,
+                'description': post.description,
+                'image_url': post.image_url,
+                'user_id': post.user_id,
+                'date': post.date,
+                'post_type': 'meal',
+                'meal': {
+                    'id': meal.id,
+                    'name': meal.name,
+                    'foods': get_foods(food_obs)
+                }
+            }
+        }
+        return jsonify(response)
+
+    # if post.meals.all() == []:
+    #     exerices = post.exercises.all()
+    # elif post.exercises.all() == []:
+    #     meals = post.meals.all()
+    # embed()
 
 @app.route('/api/v1/follow/<username>')
 # @login_required
