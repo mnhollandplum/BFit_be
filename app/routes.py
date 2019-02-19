@@ -131,7 +131,6 @@ def add_post():
         else:
             return bad_request("A post title is required.")
 
-
 @app.route('/api/v1/follow/<username>')
 # @login_required
 def follow(username):
