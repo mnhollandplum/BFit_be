@@ -13,6 +13,15 @@ from flask import request
 from IPython import embed
 import json
 
+# route helpers
+def get_foods(args):
+    food_items = []
+    for food in args:
+        food_response = {'id': food.id, 'name': food.name, 'calories': food.calories}
+        food_items.append(food_response)
+    return (food_items)
+
+# Routes
 @app.route('/')
 @app.route('/index')
 def index():
@@ -55,12 +64,11 @@ def get_user(id):
     }
     return jsonify(response)
 
-def get_foods(args):
-    food_items = []
-    for food in args:
-        food_response = {'id': food.id, 'name': food.name, 'calories': food.calories}
-        food_items.append(food_response)
-    return (food_items)
+
+# @app.route('/api/v1/users/<id>', methods=['POST', 'GET'])
+# def add_user():
+#     Post.query.filter_by(user_id=id)
+#     return jsonify(response)
 
 @app.route('/api/v1/posts', methods=['POST'])
 def add_post():

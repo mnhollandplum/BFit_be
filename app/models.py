@@ -97,11 +97,11 @@ class Exercise(db.Model):
         self.muscle_group   = data['muscle_group']
         self.post_id        = post_id
         if data['muscle_group'] == 'cardio':
-            self.time       = data['time']
-            self.distance   = data['distance']
+            self.time       = data['weightORTime']
+            self.distance   = data['repsORDistance']
         else:
-            self.reps       = data['reps']
-            self.weight     = data['weight']
+            self.reps       = data['repsORDistance']
+            self.weight     = data['weightORTime']
 
     def __repr__(self):
         return '<Exercise {}>'.format(self.name)
