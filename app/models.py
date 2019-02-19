@@ -118,8 +118,12 @@ class Meal(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     name = db.Column(db.String(200), nullable=False)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    foods = db.relationship('Food', secondary=mealfoods, lazy='subquery',
-        backref=db.backref('meals', lazy=True))
+    foods = db.relationship("Food",
+        secondary=mealfoods,
+        back_populates="meals"
+        )
+    # foods = db.relationship('Food', secondary=mealfoods, lazy='subquery',
+    #     backref=db.backref('meals', lazy=True))
 
     def __init__ (self, data, post_id):
         self.name = data["meal"]["name"]
@@ -133,6 +137,11 @@ class Food(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     calories = db.Column(db.Integer, nullable=True)
+    meals = db.relationship("Meal",
+        secondary=mealfoods,
+        back_populates="foods")
+    # meals = db.relationship('Meal', secondary=mealfoods, lazy='subquery',
+    #     backref=db.backref('foods', lazy=True))
 
     def __init__ (self, data):
         self.name = data['name']
