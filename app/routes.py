@@ -13,12 +13,35 @@ from flask import request
 from IPython import embed
 import json
 
+# route helpers
+def get_foods(args):
+    food_items = []
+    for food in args:
+        food_response = {'id': food.id, 'name': food.name, 'calories': food.calories}
+        food_items.append(food_response)
+    return (food_items)
+
+def posts_list(args):
+    post_items = []
+    for post in args:
+        post_response = {
+            'id': post.id,
+            'title': post.title,
+            'description': post.description,
+            'image_url': post.image_url,
+            'post_type': post.post_type,
+            'user_id': post.user_id
+        }
+        post_items.append(post_response)
+    return (post_items)
+
+# Routes
 @app.route('/')
 @app.route('/index')
 def index():
     return "Welcome to the BFit API. Check out our Github for instructions on accessing our endpoints"
 
-@app.route('/api/v1/users', methods=['POST', 'GET'])
+@app.route('/api/v1/users', methods=['POST'])
 def add_user():
     user_data = json.loads(request.get_data())
     if 'username' not in user_data or 'email' not in user_data or 'password' not in user_data:
@@ -55,12 +78,17 @@ def get_user(id):
     }
     return jsonify(response)
 
-def get_foods(args):
-    food_items = []
-    for food in args:
-        food_response = {'id': food.id, 'name': food.name, 'calories': food.calories}
-        food_items.append(food_response)
-    return (food_items)
+
+@app.route('/api/v1/users/<id>/posts', methods=['GET'])
+def get_user_posts(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    post_obs = Post.query.filter_by(user_id=id)
+    response = {
+        'username': user.username,
+        'posts': posts_list(post_obs)
+    }
+    return jsonify(response)
+
 
 @app.route('/api/v1/posts', methods=['POST'])
 def add_post():
