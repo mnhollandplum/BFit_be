@@ -47,6 +47,13 @@ def get_user(id):
     user = User.query.filter_by(id=id).first_or_404()
     return jsonify(user)
 
+def get_foods(args):
+    food_items = []
+    for food in args:
+        food_response = {'id': food.id, 'name': food.name, 'calories': food.calories}
+        food_items.append(food_response)
+    return (food_items)
+
 @app.route('/api/v1/posts', methods=['POST'])
 def add_post():
     post_data = json.loads(request.get_data())
@@ -83,9 +90,17 @@ def add_post():
         elif 'meal' in post_data:
             post = Post(post_data)
             db.session.add(post)
+            db.session.commit()
             meal = Meal(post_data, post.id)
             db.session.add(meal)
             db.session.commit()
+            foods = post_data['meal']['foods']
+            food_obs = []
+            for i, x in enumerate(foods, start=0):
+                food=Food(foods[i])
+                food_obs.append(food)
+                db.session.add(food)
+                db.session.commit()
             response = {
                 'post': {
                     'id': post.id,
@@ -98,17 +113,12 @@ def add_post():
                     'meal': {
                         'id': meal.id,
                         'name': meal.name,
-                        'post_id': meal.post_id
-                        # 'foods': [{
-                        #     'id': food.id,
-                        #     'name': food.name,
-                        #     'calories': food.calories
-                        # }]
-
-
+                        'post_id': meal.post_id,
+                        'foods': get_foods(food_obs)
                     }
                 }
             }
+
             return jsonify(response)
         else:
             return bad_request("A post title is required.")

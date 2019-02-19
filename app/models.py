@@ -67,7 +67,8 @@ class Post(db.Model):
     date        = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     post_type   = db.Column(db.String)
     user_id     = db.Column(db.Integer, db.ForeignKey('users.id'))
-
+    meals = db.relationship('Meal', backref='meal', lazy='dynamic')
+    exercises = db.relationship('Exercise', backref='exercise', lazy='dynamic')
 
     def __init__ (self, data):
         self.title          = data['title']
@@ -134,8 +135,8 @@ class Food(db.Model):
     calories = db.Column(db.Integer, nullable=True)
 
     def __init__ (self, data):
-        self.name = data['meal']['foods']['name']
-        self.calories = data['meal']['foods']['calories']
+        self.name = data['name']
+        self.calories = data['calories']
 
     def __repr__(self):
         return '<Food {}>'.format(self.name)
