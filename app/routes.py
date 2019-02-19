@@ -1,13 +1,16 @@
 from datetime import datetime
-
 from app import app
 from app import db
 from app.models import User
 from app.models import Post
+from app.models import Meal
+from app.models import Food
+from app.models import Exercise
 from app.error import bad_request
 from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask import request
+from IPython import embed
 import json
 
 @app.route('/')
@@ -42,14 +45,73 @@ def add_user():
 @app.route('/api/v1/users/<id>', methods=['GET'])
 def get_user(id):
     user = User.query.filter_by(id=id).first_or_404()
-    response = {'user': {
-    'id': user.id,
-    'username': user.username,
-    'email': user.email,
-    'avatar': user.avatar
-    }}
-    return jsonify(response)
+    return jsonify(user)
 
+@app.route('/api/v1/posts', methods=['POST'])
+def add_post():
+    post_data = json.loads(request.get_data())
+    if 'title' not in post_data:
+        return bad_request("A post title is required.")
+    else:
+        if 'muscle_group' in post_data:
+            post = Post(post_data)
+            db.session.add(post)
+            exercise = Exercise(post_data, post.id)
+            db.session.add(exercise)
+            db.session.commit()
+            response = {
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'exercise',
+                    'exercise': {
+                        'id': exercise.id,
+                        'muscle_group': exercise.muscle_group,
+                        'name': exercise.name,
+                        'reps': exercise.reps,
+                        'weight': exercise.weight,
+                        'time': exercise.time,
+                        'distance': exercise.distance
+                    }
+                }
+            }
+            return jsonify(response)
+        elif 'meal' in post_data:
+            post = Post(post_data)
+            db.session.add(post)
+            meal = Meal(post_data, post.id)
+            db.session.add(meal)
+            db.session.commit()
+            response = {
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'meal',
+                    'meal': {
+                        'id': meal.id,
+                        'name': meal.name,
+                        'post_id': meal.post_id
+                        # 'foods': [{
+                        #     'id': food.id,
+                        #     'name': food.name,
+                        #     'calories': food.calories
+                        # }]
+
+
+                    }
+                }
+            }
+            return jsonify(response)
+        else:
+            return bad_request("A post title is required.")
 
 
 @app.route('/api/v1/follow/<username>')

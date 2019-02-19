@@ -8,7 +8,6 @@ followers = db.Table('followers',
     db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
 )
 
-
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -43,11 +42,11 @@ class User(db.Model):
         return followed.union(own).order_by(Post.timestamp.desc())
 
 
-    def __init__ (self, username,email,avatar,password):
-        self.username = username
-        self.email = email
-        self.avatar = avatar
-        self.password = password
+    def __init__ (self, data):
+        self.username = data['username']
+        self.email = data['email']
+        self.avatar = data['avatar']
+        self.password = data['password']
 
     def __repr__(self):
         return str({
@@ -70,13 +69,12 @@ class Post(db.Model):
     user_id     = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
-    def __init__ (self, title, description, image_url, date, post_type, user_id):
-        self.title          = title
-        self.description    = description
-        self.image_url      = image_url
-        self.date           = date
-        self.post_type      = post_type
-        self.user_id        = user_id
+    def __init__ (self, data):
+        self.title          = data['title']
+        self.description    = data['description']
+        self.image_url      = data['image_url']
+        self.post_type      = data['post_type']
+        self.user_id        = data['user_id']
 
     def __repr__(self):
         return '<Post {}>'.format(self.title)
@@ -122,9 +120,8 @@ class Meal(db.Model):
     foods = db.relationship('Food', secondary=mealfoods, lazy='subquery',
         backref=db.backref('meals', lazy=True))
 
-    def __init__ (self, name, date, post_id):
-        self.name = name
-        self.date = date
+    def __init__ (self, data, post_id):
+        self.name = data["meal"]["name"]
         self.post_id = post_id
 
     def __repr__(self):
@@ -136,9 +133,9 @@ class Food(db.Model):
     name = db.Column(db.String(200), nullable=False)
     calories = db.Column(db.Integer, nullable=True)
 
-    def __init__ (self, name,calories):
-        self.name = name
-        self.calories = calories
+    def __init__ (self, data):
+        self.name = data['meal']['foods']['name']
+        self.calories = data['meal']['foods']['calories']
 
     def __repr__(self):
         return '<Food {}>'.format(self.name)
