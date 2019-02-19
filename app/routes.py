@@ -45,7 +45,15 @@ def add_user():
 @app.route('/api/v1/users/<id>', methods=['GET'])
 def get_user(id):
     user = User.query.filter_by(id=id).first_or_404()
-    return jsonify(user)
+        response = {
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'avatar': user.avatar
+            }
+        }
+        return jsonify(response)
 
 def get_foods(args):
     food_items = []
