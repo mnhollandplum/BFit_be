@@ -246,7 +246,6 @@ def get_post(id):
     post = Post.query.filter_by(id=id).first_or_404()
     if post.meals.all() == []:
         exercise = Exercise.query.filter_by(post_id=post.id).first()
-        embed()
         response = {
             'post': {
                 'id': post.id,
