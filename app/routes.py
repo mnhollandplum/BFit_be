@@ -40,12 +40,14 @@ def posts_list(args):
 
 
 # Routes
+
+#root
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Welcome to the BFit API. Check out our Github for instructions on accessing our endpoints"
+    return "Welcome to the BFit API. Check out our https://github.com/mnhollandplum/BFit_be for instructions on accessing our endpoints and contributing to our project"
 
-
+#create a user
 @app.route('/api/v1/users', methods=['POST'])
 def add_user():
     user_data = json.loads(request.get_data())
@@ -69,7 +71,18 @@ def add_user():
         }
         return jsonify(response)
 
+#edit a user
+@app.route('/api/v1/users/<id>/edit', methods=['PUT'])
+def update_user(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    updated_data = json.loads(request.get_data())
 
+    user.avatar = updated_data['avatar']
+    db.session.commit()
+
+    return jsonify(updated_data)
+
+#get a single user by id
 @app.route('/api/v1/users/<id>', methods=['GET'])
 def get_user(id):
     user = User.query.filter_by(id=id).first_or_404()
@@ -83,7 +96,7 @@ def get_user(id):
     }
     return jsonify(response)
 
-
+#get all posts and all data based on user id
 @app.route('/api/v1/users/<id>/posts', methods=['GET'])
 def get_user_posts(id):
     user = User.query.filter_by(id=id).first_or_404()
@@ -138,7 +151,7 @@ def get_user_posts(id):
 
     return jsonify(all_posts)
 
-
+#create a post
 @app.route('/api/v1/posts', methods=['POST'])
 def add_post():
     post_data = json.loads(request.get_data())
@@ -211,6 +224,7 @@ def add_post():
         else:
             return bad_request("AHHH! Something went wrong!")
 
+#get a single post based on the id
 @app.route('/api/v1/posts/<id>', methods=['GET'])
 def get_post(id):
     post = Post.query.filter_by(id=id).first_or_404()
@@ -259,36 +273,6 @@ def get_post(id):
         }
         return jsonify(response)
 
-
-@app.route('/api/v1/follow/<username>')
-# @login_required
-def follow(username):
-    user = User.query.filter_by(username=username).first()
-    if user is None:
-        flash('User {} not found.'.format(username))
-        return redirect(url_for('index'))
-    if user == current_user:
-        flash('You cannot follow yourself!')
-        return redirect(url_for('user', username=username))
-    current_user.follow(user)
-    db.session.commit()
-    flash('You are following {}!'.format(username))
-    return redirect(url_for('user', username=username))
-
-@app.route('/api/v1/unfollow/<username>')
-# @login_required
-def unfollow(username):
-    user = User.query.filter_by(username=username).first()
-    if user is None:
-        flash('User {} not found.'.format(username))
-        return redirect(url_for('index'))
-    if user == current_user:
-        flash('You cannot unfollow yourself!')
-        return redirect(url_for('user', username=username))
-    current_user.unfollow(user)
-    db.session.commit()
-    flash('You are not following {}.'.format(username))
-    return redirect(url_for('user', username=username))
 
 if __name__ == '__main__':
   app.run(debug=True)
