@@ -98,20 +98,6 @@ def get_users():
         all_users.append(response)
     return jsonify(all_users)
 
-#get a single user by username
-@app.route('/api/v1/users/<username>', methods=['GET'])
-def get_user_username(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    response = {
-        'user': {
-        'id': user.id,
-        'username': user.username,
-        'email': user.email,
-        'avatar': user.avatar
-        }
-    }
-    return jsonify(response)
-
 #get a single user by id
 @app.route('/api/v1/users/<id>', methods=['GET'])
 def get_user_id(id):
@@ -260,7 +246,6 @@ def get_post(id):
     post = Post.query.filter_by(id=id).first_or_404()
     if post.meals.all() == []:
         exercise = Exercise.query.filter_by(post_id=post.id).first()
-        embed()
         response = {
             'post': {
                 'id': post.id,
