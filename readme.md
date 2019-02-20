@@ -68,6 +68,27 @@
     }
 ]
 ```
+##### Optional query param that will match username with similar usernames in database. Key: username Value: username query.
+localhost:5000/api/v1/users?username=jane
+#### Expected JSON response structure upon successful GET request with query.
+```json
+[
+    {
+        "users": {
+            "avatar": "janeimage",
+            "email": "janedoe@email.com",
+            "username": "Jane Doe"
+        }
+    },
+    {
+        "users": {
+            "avatar": "janenotdoeimage",
+            "email": "janenotdoe@email.com",
+            "username": "Jane Notdoe"
+        }
+    }
+]
+```
 
 #### GET api/v1/users/:username 
 
