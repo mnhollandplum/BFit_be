@@ -16,13 +16,16 @@ class User(db.Model):
     email       = db.Column(db.String(200), unique=True, nullable=False)
     avatar      = db.Column(db.String(200), nullable=False, default='default.jpg')
     password    = db.Column(db.String(200), nullable=False)
-    posts       = db.relationship('Post', backref='author', lazy='dynamic')
-
-    followed = db.relationship(
-        'User', secondary=followers,
-        primaryjoin=(followers.c.follower_id == id),
-        secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+    posts       = db.relationship(
+                    'Post', backref='author', lazy='dynamic'
+                )
+    followed    = db.relationship(
+                    'User', secondary=followers,
+                    primaryjoin=(followers.c.follower_id == id),
+                    secondaryjoin=(followers.c.followed_id == id),
+                    backref=db.backref('following', lazy='dynamic'),
+                    lazy='dynamic'
+                )
 
     def follow(self, user):
         if not self.is_following(user):
@@ -70,8 +73,12 @@ class Post(db.Model):
     date        = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     post_type   = db.Column(db.String)
     user_id     = db.Column(db.Integer, db.ForeignKey('users.id'))
-    meals       = db.relationship('Meal', backref='meal', lazy='dynamic')
-    exercises   = db.relationship('Exercise', backref='exercise', lazy='dynamic')
+    meals       = db.relationship(
+                    'Meal', backref='meal', lazy='dynamic'
+                )
+    exercises   = db.relationship(
+                    'Exercise', backref='exercise', lazy='dynamic'
+                )
 
     def __init__ (self, data):
         self.title          = data['title']
@@ -123,10 +130,10 @@ class Meal(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     name    = db.Column(db.String(200), nullable=False)
     date    = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    foods   = db.relationship("Food",
-        secondary=mealfoods,
-        back_populates="meals"
-        )
+    foods   = db.relationship(
+                "Food", secondary=mealfoods,
+                back_populates="meals"
+            )
 
     def __init__ (self, data, post_id):
         self.name       = data["meal"]["name"]
@@ -141,9 +148,10 @@ class Food(db.Model):
     id          = db.Column(db.Integer, primary_key=True)
     name        = db.Column(db.String(200), nullable=False)
     calories    = db.Column(db.Integer, nullable=True)
-    meals       = db.relationship("Meal",
-        secondary=mealfoods,
-        back_populates="foods")
+    meals       = db.relationship(
+                    "Meal", secondary=mealfoods,
+                    back_populates="foods"
+                )
 
     def __init__ (self, data):
         self.name = data['name']

@@ -47,6 +47,7 @@ def posts_list(args):
 def index():
     return "Welcome to the BFit API. Check out our https://github.com/mnhollandplum/BFit_be for instructions on accessing our endpoints and contributing to our project"
 
+
 #create a user
 @app.route('/api/v1/users', methods=['POST'])
 def add_user():
@@ -90,6 +91,7 @@ def get_users():
     for user in users:
         response = {
             'users': {
+                'id': user.id,
                 'username': user.username,
                 'email': user.email,
                 'avatar': user.avatar
@@ -111,6 +113,47 @@ def get_user_id(id):
         }
     }
     return jsonify(response)
+
+
+# current user follows another user
+@app.route('/api/v1/users/<user_id>/follow/<id>', methods=['POST'])
+def follow_user(user_id, id):
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    followed = User.query.filter_by(id=id).first_or_404()
+    # create association
+    current_user.follow(followed)
+    db.session.commit()
+    response = "{} is now following {}!".format(current_user.username, followed.username)
+    return jsonify(response)
+
+
+# current user unfollows another user
+@app.route('/api/v1/users/<user_id>/unfollow/<id>', methods=['POST'])
+def unfollow_user(user_id, id):
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    unfollowed = User.query.filter_by(id=id).first_or_404()
+    # create association
+    current_user.unfollow(unfollowed)
+    db.session.commit()
+    response = "{} is no longer following {}.".format(current_user.username, unfollowed.username)
+    return jsonify(response)
+
+
+# get a list of users that current user is following
+@app.route('/api/v1/users/<id>/following', methods=['GET'])
+def get_following(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    response = "something"
+    return jsonify(response)
+
+
+# get a list of user who follow current user
+@app.route('/api/v1/users/<id>/followers', methods=['GET'])
+def get_followers(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    response = "something"
+    return jsonify(response)
+
 
 #get all posts and all data based on user id
 @app.route('/api/v1/users/<id>/posts', methods=['GET'])
