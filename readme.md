@@ -270,8 +270,8 @@ GET api/v1/users/<id>/posts<br/>
                    	   "calories": 0,
                   	   "id": 28,
                   	   "name": ""
-              		}
-           ],
+              	}
+	]},
             "id": 1,
             "name": "breakfast",
             "post_id": 1
