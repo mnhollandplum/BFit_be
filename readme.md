@@ -307,12 +307,12 @@ GET api/v1/users/<id>/posts<br/>
 
 
 
-###WIP<br/>
+### WIP<br/>
 GET api/v1/users/<id>/followers<br/>
 GET api/v1/users/<id>/following<br/>
 GET api/v1/users/<id>/feed<br/>
 
-##MVP Schema<br/>
+## MVP Schema<br/>
 ![Schema](./Schema.png)<br/>
 
-##Known Issues
+## Known Issues
