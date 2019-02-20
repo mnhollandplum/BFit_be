@@ -35,7 +35,53 @@
     }
 }
 ```
+#### PUT api/v1/users/:id/edit
 
+#### Expected JSON request structure upon successful GET request
+```json
+{"avatar":"new avatar"}
+```
+
+#### Expected JSON response structure upon successful GET request
+```json
+{"avatar":"new avatar"}
+```
+
+### GET api/v1/users
+
+#### Expected JSON response structure upon successful GET request
+```json
+[
+    {
+        "users": {
+            "avatar": "new image",
+            "email": "test",
+            "username": "test"
+        }
+    },
+    {
+        "users": {
+            "avatar": "test2",
+            "email": "test2",
+            "username": "test2"
+        }
+    }
+]
+```
+
+#### GET api/v1/users/:username 
+
+#### Expected JSON response structure upon successful GET request
+```json
+{
+    "user": {
+        "avatar": "image.com",
+        "email": "email@email.com",
+        "id": 1,
+        "username": "username1"
+    }
+}
+```
 
 #### GET api/v1/users/:id 
 
@@ -80,7 +126,7 @@ Foods<br/>
 | `calories`        | integer| no        | The calories must be an integer.
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
-#### Expected JSON response structure upon successful POST request<br/>
+#### Expected JSON request structure upon successful POST request<br/>
 ```json
 {
   "title": "test meal post title",
@@ -160,7 +206,7 @@ Exercise
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
 
-####Expected JSON response structure upon successful POST request<br/>
+#### Expected JSON request structure upon successful POST request<br/>
 ```json
 {
      "title": "Running is the worst!",
@@ -175,7 +221,7 @@ Exercise
 }
 ```
 
-####Expected JSON response structure upon successful POST request<br/>
+#### Expected JSON response structure upon successful POST request<br/>
 ```json
 {
     "post": {
@@ -201,27 +247,59 @@ Exercise
 
 
 GET api/v1/users/<id>/posts<br/>
-####Expected JSON response structure upon successful GET request<br/>
+	
+#### Expected JSON response structure upon successful GET request<br/>
 	
 ```json
 {
     "posts": [
-        {
-            "description": "test meal post description",
+    	{
+        "post": {
+       		"date": "Tue, 19 Feb 2019 21:56:54 GMT",
+       		"description": "test meal post description",
+       		"id": 18,
+       		"image_url": "testmealpost.image_url",
+      		 "meal": {
+           		"foods": [
+              		 {
+			   "calories": 12,
+                  	   "id": 27,
+                   	   "name": "carrot"
+               		},
+               {
+                   	   "calories": 0,
+                  	   "id": 28,
+                  	   "name": ""
+              		}
+           ],
             "id": 1,
-            "image_url": "testmealpost.image_url",
-            "post_type": "meal",
-            "title": "test meal post title",
-            "user_id": 1
+            "name": "breakfast",
+            "post_id": 1
         },
+        "post_type": "meal",
+        "title": "test meal post title",
+        "user_id": 1
+    },
         {
-            "description": "But do it anyways!",
+           
+    "post": {
+        "date": "Tue, 19 Feb 2019 23:16:56 GMT",
+        "description": "But do it anyways!",
+        "exercise": {
+            "distance": 5,
             "id": 2,
-            "image_url": "pumpingiron.png",
-            "post_type": "exercise",
-            "title": "Running is the worst!",
-            "user_id": 1
+            "muscle_group": "cardio",
+            "name": "Treadmill for days",
+            "reps": null,
+            "time": 50,
+            "weight": null
         },
+        "id": 1,
+        "image_url": "pumpingiron.png",
+        "post_type": "exercise",
+        "title": "Running is the worst!",
+        "user_id": 1
+    }
             ],
     "username": "56789"
 }
