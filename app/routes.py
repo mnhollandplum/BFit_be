@@ -47,6 +47,7 @@ def posts_list(args):
 def index():
     return "Welcome to the BFit API. Check out our https://github.com/mnhollandplum/BFit_be for instructions on accessing our endpoints and contributing to our project"
 
+
 #create a user
 @app.route('/api/v1/users', methods=['POST'])
 def add_user():
@@ -90,6 +91,7 @@ def get_users():
     for user in users:
         response = {
             'users': {
+                'id': user.id,
                 'username': user.username,
                 'email': user.email,
                 'avatar': user.avatar
@@ -119,8 +121,8 @@ def follow_user(user_id, id):
     current_user = User.query.filter_by(id=user_id).first_or_404()
     followed = User.query.filter_by(id=id).first_or_404()
     # create association
-    followed.followed.append(current_user)
-    db.sessions.commit()
+    current_user.follow(self, followed)
+    db.session.commit()
     response = "{} is now following {}!".format(current_user.username, followed.username)
     return jsonify(response)
 
@@ -131,8 +133,8 @@ def unfollow_user(user_id, id):
     current_user = User.query.filter_by(id=user_id).first_or_404()
     unfollowed = User.query.filter_by(id=id).first_or_404()
     # create association
-    followed.followed.remove(current_user)
-    db.sessions.commit()
+    current_user.unfollow(self,unfollowed)
+    db.session.commit()
     response = "{} is no longer following {}.".format(current_user.username, unfollowed.username)
     return jsonify(response)
 
