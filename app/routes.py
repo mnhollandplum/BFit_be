@@ -148,9 +148,20 @@ def unfollow_user(user_id, id):
 # get a list of users that current user is following
 @app.route('/api/v1/users/<id>/following', methods=['GET'])
 def get_following(id):
-    user = User.query.filter_by(id=id).first_or_404()
-    response = "something"
-    return jsonify(response)
+    current_user = User.query.filter_by(id=id).first_or_404()
+    user_obs = current_user.followed.all()
+    users = []
+    for user in user_obs:
+        response = {
+            'users': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'avatar': user.avatar
+            }
+        }
+        users.append(response)
+    return jsonify(users)
 
 
 # get a list of user who follow current user
