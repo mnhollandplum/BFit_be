@@ -86,9 +86,14 @@ def update_user(id):
 #get all users
 @app.route('/api/v1/users', methods=['GET'])
 def get_users():
-    users = User.query.all()
-    all_users = []
-    for user in users:
+    username_query = request.args.get('username')
+    users = []
+    if username_query:
+        user_obs = User.query.filter(User.username.like(f'%{username_query}%')).all()
+    else:
+        user_obs = User.query.all()
+
+    for user in user_obs:
         response = {
             'users': {
                 'id': user.id,
@@ -97,8 +102,9 @@ def get_users():
                 'avatar': user.avatar
             }
         }
-        all_users.append(response)
-    return jsonify(all_users)
+        users.append(response)
+    return jsonify(users)
+
 
 #get a single user by id
 @app.route('/api/v1/users/<id>', methods=['GET'])
