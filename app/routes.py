@@ -88,11 +88,55 @@ def get_user(id):
 def get_user_posts(id):
     user = User.query.filter_by(id=id).first_or_404()
     post_obs = Post.query.filter_by(user_id=id)
-    response = {
-        'username': user.username,
-        'posts': posts_list(post_obs)
-    }
-    return jsonify(response)
+    all_posts = []
+    for post in post_obs:
+        if post.meals.all() == []:
+            exercise = Exercise.query.filter_by(post_id=post.id).first()
+            response = {
+            'username': user.username,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'exercise',
+                    'exercise': {
+                        'id': exercise.id,
+                        'muscle_group': exercise.muscle_group,
+                        'name': exercise.name,
+                        'reps': exercise.reps,
+                        'weight': exercise.weight,
+                        'time': exercise.time,
+                        'distance': exercise.distance
+                    }
+                }
+            }
+            all_posts.append(response)
+        else:
+            meal = Meal.query.filter_by(post_id=post.id).first()
+            food_obs = meal.foods
+            response = {
+            'username': user.username,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'meal',
+                    'meal': {
+                        'id': meal.id,
+                        'name': meal.name,
+                        'foods': get_foods(food_obs)
+                    }
+                }
+            }
+            all_posts.append(response)
+
+    return jsonify(all_posts)
 
 
 @app.route('/api/v1/posts', methods=['POST'])
