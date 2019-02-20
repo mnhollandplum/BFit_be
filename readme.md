@@ -1,10 +1,10 @@
 # BFit Backend
 
 
-##Routes, Request Body and Response
-###Functioning
+## Routes, Request Body and Response<br/>
+### Functioning<br/>
 
-####POST api/v1/users
+#### POST api/v1/users<br/>
 
 | Object Field       | Type   | Required? | Description |
 |--------------------|--------|-----------|-------------|
@@ -14,39 +14,41 @@
 | `avatar`           | string | no        | The avatar image is stored as a url.
 | `password`         | string | yes       | The password is hashed for secure storage.
 
-####Expected JSON request structure <br/>
-{
-  "username":"username1",
-  "email":"email@email.com",
-  "avatar":"image.com",
-  "password":"12345"
-}
+#### Expected JSON request structure <br/>
+{<br/>
+  "username":"username1",<br/>
+  "email":"email@email.com",<br/>
+  "avatar":"image.com",<br/>
+  "password":"12345"<br/>
+}<br/>
 
-####Expected JSON response structure upon successful POST request<br/>
-{
-    "user": {
-        "avatar": "image.com",
-        "email": "email@email.com",
-        "id": 1,
-        "username": "username1"
-    }
-}
+#### Expected JSON response structure upon successful POST request<br/>
+{<br/>
+    "user": {<br/>
+        "avatar": "image.com",<br/>
+        "email": "email@email.com",<br/>
+        "id": 1,<br/>
+        "username": "username1"<br/>
+    }<br/>
+}<br/>
 
 
-####GET api/v1/users/<id>
+#### GET api/v1/users/:id 
+<br/>
 
-####Expected JSON response structure upon successful GET request
-{
-    "user": {
-        "avatar": "image.com",
-        "email": "email@email.com",
-        "id": 1,
-        "username": "username1"
-    }
-}
+#### Expected JSON response structure upon successful GET request
+<br/>
+{<br/>
+    "user": {<br/>
+        "avatar": "image.com",<br/>
+        "email": "email@email.com",<br/>
+        "id": 1,<br/>
+        "username": "username1"<br/>
+    }<br/>
+}<br/>
 
-####POST api/v1/posts for a meal post_type
-
+#### POST api/v1/posts for a meal post_type
+<br/>
 Post<br/>
 
 | Object Field      | Type   | Required? | Description |
@@ -74,55 +76,55 @@ Foods<br/>
 | `calories`        | integer| no        | The calories must be an integer.
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
-####Expected JSON response structure upon successful POST request<br/>
-{
-  "title": "test meal post title",
-  "description": "test meal post description",
-  "image_url": "testmealpost.image_url",
-  "user_id": 1,
-  "post_type": "meal",
-  "meal": {
-      "name": "breakfast",
-          "foods": [{
-              "name": "carrot",
-              "calories": 12
-          },
-          {
-            "name": "",
-            "calories": 0
-          } ]
+#### Expected JSON response structure upon successful POST request<br/>
+{<br/>
+  "title": "test meal post title",<br/>
+  "description": "test meal post description",<br/>
+  "image_url": "testmealpost.image_url",<br/>
+  "user_id": 1,<br/>
+  "post_type": "meal",<br/>
+  "meal": {<br/>
+      "name": "breakfast",<br/>
+          "foods": [{<br/>
+              "name": "carrot",<br/>
+              "calories": 12<br/>
+          },<br/>
+          {<br/>
+            "name": "",<br/>
+            "calories": 0<br/>
+          } ]<br/>
     }
  }
 
-####Expected JSON response structure upon successful POST request<br/>
-{
-    "post": {
-        "date": "Tue, 19 Feb 2019 21:56:54 GMT",
-        "description": "test meal post description",
-        "id": 18,
-        "image_url": "testmealpost.image_url",
-        "meal": {
-            "foods": [
-                {
-                    "calories": 12,
-                    "id": 27,
-                    "name": "carrot"
-                },
-                {
-                    "calories": 0,
-                    "id": 28,
-                    "name": ""
-                }
-            ],
-            "id": 1,
-            "name": "breakfast",
-            "post_id": 1
-        },
-        "post_type": "meal",
-        "title": "test meal post title",
-        "user_id": 1
-    }
-}
+#### Expected JSON response structure upon successful POST request<br/>
+{<br/>
+    "post": {<br/>
+        "date": "Tue, 19 Feb 2019 21:56:54 GMT",<br/>
+        "description": "test meal post description",<br/>
+        "id": 18,<br/>
+        "image_url": "testmealpost.image_url",<br/>
+        "meal": {<br/>
+            "foods": [<br/>
+                {<br/>
+                    "calories": 12,<br/>
+                    "id": 27,<br/>
+                    "name": "carrot"<br/>
+                },<br/>
+                {<br/>
+                    "calories": 0,<br/>
+                    "id": 28,<br/>
+                    "name": ""<br/>
+                }<br/>
+            ],<br/>
+            "id": 1,<br/>
+            "name": "breakfast",<br/>
+            "post_id": 1<br/>
+        },<br/>
+        "post_type": "meal",<br/>
+        "title": "test meal post title",<br/>
+        "user_id": 1<br/>
+    }<br/>
+}<br/>
 
 ####POST api/v1/posts for a exercise post_type<br/>
 
@@ -151,64 +153,64 @@ Exercise
 
 
 ####Expected JSON response structure upon successful POST request<br/>
-{
-	"title": "Running is the worst!",
-	"description": "But do it anyways!",
-	"image_url": "pumpingiron.png",
-	"user_id": "1",
-	"post_type": "exercise",
-  "muscle_group": "cardio",
-  "name": "Treadmill for days",
-  "weightORTime": "50",
-  "repsORDistance": "5"
-}
+{<br/>
+	"title": "Running is the worst!",<br/>
+	"description": "But do it anyways!",<br/>
+	"image_url": "pumpingiron.png",<br/>
+	"user_id": "1",<br/>
+	"post_type": "exercise",<br/>
+  "muscle_group": "cardio",<br/>
+  "name": "Treadmill for days",<br/>
+  "weightORTime": "50",<br/>
+  "repsORDistance": "5"<br/>
+}<br/>
 
 ####Expected JSON response structure upon successful POST request<br/>
-{
-    "post": {
-        "date": "Tue, 19 Feb 2019 23:16:56 GMT",
-        "description": "But do it anyways!",
-        "exercise": {
-            "distance": 5,
-            "id": 2,
-            "muscle_group": "cardio",
-            "name": "Treadmill for days",
-            "reps": null,
-            "time": 50,
-            "weight": null
-        },
-        "id": 1,
-        "image_url": "pumpingiron.png",
-        "post_type": "exercise",
-        "title": "Running is the worst!",
-        "user_id": 1
+{<br/>
+    "post": {<br/>
+        "date": "Tue, 19 Feb 2019 23:16:56 GMT",<br/>
+        "description": "But do it anyways!",<br/>
+        "exercise": {<br/>
+            "distance": 5,<br/>
+            "id": 2,<br/>
+            "muscle_group": "cardio",<br/>
+            "name": "Treadmill for days",<br/>
+            "reps": null,<br/>
+            "time": 50,<br/>
+            "weight": null<br/>
+        },<br/>
+        "id": 1,<br/>
+        "image_url": "pumpingiron.png",<br/>
+        "post_type": "exercise",<br/>
+        "title": "Running is the worst!",<br/>
+        "user_id": 1<br/>
     }
 }
 
 
 GET api/v1/users/<id>/posts<br/>
 ####Expected JSON response structure upon successful GET request<br/>
-{
-    "posts": [
-        {
-            "description": "test meal post description",
-            "id": 1,
-            "image_url": "testmealpost.image_url",
-            "post_type": "meal",
-            "title": "test meal post title",
-            "user_id": 1
-        },
-        {
-            "description": "But do it anyways!",
-            "id": 2,
-            "image_url": "pumpingiron.png",
-            "post_type": "exercise",
-            "title": "Running is the worst!",
-            "user_id": 1
-        },
-            ],
-    "username": "56789"
-}
+{<br/>
+    "posts": [<br/>
+        {<br/>
+            "description": "test meal post description",<br/>
+            "id": 1,<br/>
+            "image_url": "testmealpost.image_url",<br/>
+            "post_type": "meal",<br/>
+            "title": "test meal post title",<br/>
+            "user_id": 1<br/>
+        },<br/>
+        {<br/>
+            "description": "But do it anyways!",<br/>
+            "id": 2,<br/>
+            "image_url": "pumpingiron.png",<br/>
+            "post_type": "exercise",<br/>
+            "title": "Running is the worst!",<br/>
+            "user_id": 1<br/>
+        },<br/>
+            ],<br/>
+    "username": "56789"<br/>
+}<br/>
 
 
 
@@ -218,6 +220,6 @@ GET api/v1/users/<id>/following<br/>
 GET api/v1/users/<id>/feed<br/>
 
 ##MVP Schema<br/>
-![Schema](./schema.png)
+![Schema](./Schema.png)<br/>
 
 ##Known Issues
