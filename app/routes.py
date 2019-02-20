@@ -112,6 +112,47 @@ def get_user_id(id):
     }
     return jsonify(response)
 
+
+# current user follows another user
+@app.route('/api/v1/users/<user_id>/follow/<id>', methods=['POST'])
+def follow_user(user_id, id):
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    followed = User.query.filter_by(id=id).first_or_404()
+    # create association
+    followed.followed.append(current_user)
+    db.sessions.commit()
+    response = "{} is now following {}!".format(current_user.username, followed.username)
+    return jsonify(response)
+
+
+# current user unfollows another user
+@app.route('/api/v1/users/<user_id>/unfollow/<id>', methods=['POST'])
+def unfollow_user(user_id, id):
+    current_user = User.query.filter_by(id=user_id).first_or_404()
+    unfollowed = User.query.filter_by(id=id).first_or_404()
+    # create association
+    followed.followed.remove(current_user)
+    db.sessions.commit()
+    response = "{} is no longer following {}.".format(current_user.username, unfollowed.username)
+    return jsonify(response)
+
+
+# get a list of users that current user is following
+@app.route('/api/v1/users/<id>/following', methods=['GET'])
+def get_following(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    response = "something"
+    return jsonify(response)
+
+
+# get a list of user who follow current user
+@app.route('/api/v1/users/<id>/followers', methods=['GET'])
+def get_followers(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    response = "something"
+    return jsonify(response)
+
+
 #get all posts and all data based on user id
 @app.route('/api/v1/users/<id>/posts', methods=['GET'])
 def get_user_posts(id):
