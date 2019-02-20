@@ -1,4 +1,4 @@
-# BFit Backend
+# BFit API
 
 
 ## Routes, Request Body and Response<br/>
