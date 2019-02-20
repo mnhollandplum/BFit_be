@@ -349,5 +349,68 @@ def get_post(id):
         return jsonify(response)
 
 
+@app.route('/api/v1/users/<id>/feed', methods=['GET'])
+def get_feed(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    following = user.followed.all()
+    post_obs = []
+
+    for user in following:
+        post_obs = post_obs + user.posts.all()
+
+    sorted_obs = sorted(post_obs, key=lambda post: post.date , reverse=True)
+    all_posts = []
+    for post in sorted_obs:
+        if post.meals.all() == []:
+            exercise = Exercise.query.filter_by(post_id=post.id).first()
+            response = {
+                'username': user.username,
+                'avatar': user.avatar,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'exercise',
+                    'exercise': {
+                        'id': exercise.id,
+                        'muscle_group': exercise.muscle_group,
+                        'name': exercise.name,
+                        'reps': exercise.reps,
+                        'weight': exercise.weight,
+                        'time': exercise.time,
+                        'distance': exercise.distance
+                    }
+                }
+            }
+            all_posts.append(response)
+        else:
+            meal = Meal.query.filter_by(post_id=post.id).first()
+            food_obs = meal.foods
+            response = {
+                'username': user.username,
+                'avatar': user.avatar,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'meal',
+                    'meal': {
+                        'id': meal.id,
+                        'name': meal.name,
+                        'foods': get_foods(food_obs)
+                    }
+                }
+            }
+            all_posts.append(response)
+
+    return jsonify(all_posts)
+
+
 if __name__ == '__main__':
   app.run(debug=True)
