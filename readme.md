@@ -14,7 +14,7 @@
 | `avatar`           | string | no        | The avatar image is stored as a url.
 | `password`         | string | yes       | The password is hashed for secure storage.
 
-####Expected JSON request structure
+####Expected JSON request structure <br/>
 {
   "username":"username1",
   "email":"email@email.com",
@@ -22,7 +22,7 @@
   "password":"12345"
 }
 
-####Expected JSON response structure upon successful POST request
+####Expected JSON response structure upon successful POST request<br/>
 {
     "user": {
         "avatar": "image.com",
@@ -47,7 +47,8 @@
 
 ####POST api/v1/posts for a meal post_type
 
-Post
+Post<br/>
+
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
 | `id`              | integer| yes       | The id is automatically created. Do not send in POST.
@@ -57,13 +58,15 @@ Post
 | `user_id `        | integer| yes       | The user_id associates the post with the user.
 | `post_type `      | string | yes       | The post_type must be "meal".
 
-Meal
+Meal<br/>
+
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
 | `id`              | integer| yes       | The id is automatically created. Do not send in POST.
 | `name`            | string | no        | The name must be under 20 chars.
 
-Foods
+Foods<br/>
+
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
 | `id`              | integer| yes       | The id is automatically created. Do not send in POST.
@@ -71,7 +74,7 @@ Foods
 | `calories`        | integer| no        | The calories must be an integer.
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
-####Expected JSON response structure upon successful POST request
+####Expected JSON response structure upon successful POST request<br/>
 {
   "title": "test meal post title",
   "description": "test meal post description",
@@ -91,7 +94,7 @@ Foods
     }
  }
 
-####Expected JSON response structure upon successful POST request
+####Expected JSON response structure upon successful POST request<br/>
 {
     "post": {
         "date": "Tue, 19 Feb 2019 21:56:54 GMT",
@@ -121,9 +124,10 @@ Foods
     }
 }
 
-####POST api/v1/posts for a exercise post_type
+####POST api/v1/posts for a exercise post_type<br/>
 
-Post
+Post<br/>
+
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
 | `id`              | integer| yes       | The id is automatically created. Do not send in POST.
@@ -146,7 +150,7 @@ Exercise
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
 
-####Expected JSON response structure upon successful POST request
+####Expected JSON response structure upon successful POST request<br/>
 {
 	"title": "Running is the worst!",
 	"description": "But do it anyways!",
@@ -159,7 +163,7 @@ Exercise
   "repsORDistance": "5"
 }
 
-####Expected JSON response structure upon successful POST request
+####Expected JSON response structure upon successful POST request<br/>
 {
     "post": {
         "date": "Tue, 19 Feb 2019 23:16:56 GMT",
@@ -182,8 +186,8 @@ Exercise
 }
 
 
-GET api/v1/users/<id>/posts
-####Expected JSON response structure upon successful GET request
+GET api/v1/users/<id>/posts<br/>
+####Expected JSON response structure upon successful GET request<br/>
 {
     "posts": [
         {
@@ -208,12 +212,12 @@ GET api/v1/users/<id>/posts
 
 
 
-###WIP
-GET api/v1/users/<id>/followers
-GET api/v1/users/<id>/following
-GET api/v1/users/<id>/feed
+###WIP<br/>
+GET api/v1/users/<id>/followers<br/>
+GET api/v1/users/<id>/following<br/>
+GET api/v1/users/<id>/feed<br/>
 
-##MVP Schema
+##MVP Schema<br/>
 ![Schema](./schema.png)
 
 ##Known Issues
