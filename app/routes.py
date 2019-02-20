@@ -89,7 +89,7 @@ def get_users():
     username_query = request.args.get('username')
     users = []
     if username_query:
-        user_obs = User.query.filter(User.username.like(f'%{username_query}%')).all()
+        user_obs = User.query.filter(User.username.ilike(f'%{username_query}%')).all()
     else:
         user_obs = User.query.all()
 
