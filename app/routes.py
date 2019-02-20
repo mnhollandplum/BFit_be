@@ -14,6 +14,7 @@ from flask import request
 from IPython import embed
 import json
 
+
 # route helpers
 def get_foods(args):
     food_items = []
@@ -21,6 +22,7 @@ def get_foods(args):
         food_response = {'id': food.id, 'name': food.name, 'calories': food.calories}
         food_items.append(food_response)
     return (food_items)
+
 
 def posts_list(args):
     post_items = []
@@ -36,11 +38,13 @@ def posts_list(args):
         post_items.append(post_response)
     return (post_items)
 
+
 # Routes
 @app.route('/')
 @app.route('/index')
 def index():
     return "Welcome to the BFit API. Check out our Github for instructions on accessing our endpoints"
+
 
 @app.route('/api/v1/users', methods=['POST'])
 def add_user():
@@ -161,13 +165,14 @@ def add_post():
 
             return jsonify(response)
         else:
-            return bad_request("A post title is required.")
+            return bad_request("AHHH! Something went wrong!")
 
 @app.route('/api/v1/posts/<id>', methods=['GET'])
 def get_post(id):
     post = Post.query.filter_by(id=id).first_or_404()
     if post.meals.all() == []:
         exercise = Exercise.query.filter_by(post_id=post.id).first()
+        embed()
         response = {
             'post': {
                 'id': post.id,
@@ -210,11 +215,6 @@ def get_post(id):
         }
         return jsonify(response)
 
-    # if post.meals.all() == []:
-    #     exerices = post.exercises.all()
-    # elif post.exercises.all() == []:
-    #     meals = post.meals.all()
-    # embed()
 
 @app.route('/api/v1/follow/<username>')
 # @login_required
