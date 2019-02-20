@@ -82,9 +82,39 @@ def update_user(id):
 
     return jsonify(updated_data)
 
+#get all users
+@app.route('/api/v1/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    all_users = []
+    for user in users:
+        response = {
+            'users': {
+                'username': user.username,
+                'email': user.email,
+                'avatar': user.avatar
+            }
+        }
+        all_users.append(response)
+    return jsonify(all_users)
+
+#get a single user by username
+@app.route('/api/v1/users/<username>', methods=['GET'])
+def get_user_username(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    response = {
+        'user': {
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'avatar': user.avatar
+        }
+    }
+    return jsonify(response)
+
 #get a single user by id
 @app.route('/api/v1/users/<id>', methods=['GET'])
-def get_user(id):
+def get_user_id(id):
     user = User.query.filter_by(id=id).first_or_404()
     response = {
         'user': {
