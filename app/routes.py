@@ -121,7 +121,7 @@ def follow_user(user_id, id):
     current_user = User.query.filter_by(id=user_id).first_or_404()
     followed = User.query.filter_by(id=id).first_or_404()
     # create association
-    current_user.follow(self, followed)
+    current_user.follow(followed)
     db.session.commit()
     response = "{} is now following {}!".format(current_user.username, followed.username)
     return jsonify(response)
@@ -133,7 +133,7 @@ def unfollow_user(user_id, id):
     current_user = User.query.filter_by(id=user_id).first_or_404()
     unfollowed = User.query.filter_by(id=id).first_or_404()
     # create association
-    current_user.unfollow(self,unfollowed)
+    current_user.unfollow(unfollowed)
     db.session.commit()
     response = "{} is no longer following {}.".format(current_user.username, unfollowed.username)
     return jsonify(response)
