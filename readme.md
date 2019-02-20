@@ -251,58 +251,78 @@ GET api/v1/users/<id>/posts<br/>
 #### Expected JSON response structure upon successful GET request<br/>
 	
 ```json
-{
-    "posts": [
-    	{
+[
+    {
         "post": {
-       		"date": "Tue, 19 Feb 2019 21:56:54 GMT",
-       		"description": "test meal post description",
-       		"id": 18,
-       		"image_url": "testmealpost.image_url",
-      		 "meal": {
-           		"foods": [
-              		 {
-			   "calories": 12,
-                  	   "id": 27,
-                   	   "name": "carrot"
-               		},
-               {
-                   	   "calories": 0,
-                  	   "id": 28,
-                  	   "name": ""
-              	}
-	]},
-            "id": 1,
-            "name": "breakfast",
-            "post_id": 1
-        },
-        "post_type": "meal",
-        "title": "test meal post title",
-        "user_id": 1
-    },
-        {
-           
-    "post": {
-        "date": "Tue, 19 Feb 2019 23:16:56 GMT",
-        "description": "But do it anyways!",
-        "exercise": {
-            "distance": 5,
+            "date": "Wed, 20 Feb 2019 18:39:38 GMT",
+            "description": "She does it every day",
+            "exercise": {
+                "distance": null,
+                "id": 2,
+                "muscle_group": "arms",
+                "name": "AfternoonLift",
+                "reps": 10,
+                "time": null,
+                "weight": 85
+            },
             "id": 2,
-            "muscle_group": "cardio",
-            "name": "Treadmill for days",
-            "reps": null,
-            "time": 50,
-            "weight": null
+            "image_url": "janelifting.png",
+            "post_type": "exercise",
+            "title": "Jane likes to lift",
+            "user_id": 2
         },
-        "id": 1,
-        "image_url": "pumpingiron.png",
-        "post_type": "exercise",
-        "title": "Running is the worst!",
-        "user_id": 1
+        "username": "Jane Doe"
+    },
+    {
+        "post": {
+            "date": "Wed, 20 Feb 2019 18:42:14 GMT",
+            "description": "This is Jane's meal post",
+            "id": 4,
+            "image_url": "janesmeal.image_url",
+            "meal": {
+                "foods": [
+                    {
+                        "calories": 300,
+                        "id": 3,
+                        "name": "milkshake"
+                    },
+                    {
+                        "calories": 12,
+                        "id": 4,
+                        "name": "apple"
+                    }
+                ],
+                "id": 2,
+                "name": "lunch"
+            },
+            "post_type": "meal",
+            "title": "Jane's meal post",
+            "user_id": 2
+        },
+        "username": "Jane Doe"
+    },
+    {
+        "post": {
+            "date": "Wed, 20 Feb 2019 18:47:12 GMT",
+            "description": "",
+            "exercise": {
+                "distance": null,
+                "id": 3,
+                "muscle_group": "Triceps",
+                "name": "Dips",
+                "reps": 4,
+                "time": null,
+                "weight": 3
+            },
+            "id": 5,
+            "image_url": "",
+            "post_type": "exercise",
+            "title": "Dips",
+            "user_id": 2
+        },
+        "username": "Jane Doe"
     }
-            ],
-    "username": "56789"
-}
+]
 ```
 
 
