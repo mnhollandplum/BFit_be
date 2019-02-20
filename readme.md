@@ -30,7 +30,7 @@
     "user": {
         "avatar": "image.com",
         "email": "email@email.com",
-        "id": 1,<br/>
+        "id": 1,
         "username": "username1"
     }
 }
@@ -83,21 +83,21 @@ Foods<br/>
 #### Expected JSON response structure upon successful POST request<br/>
 ```json
 {
-  "title": "test meal post title",<br/>
-  "description": "test meal post description",<br/>
-  "image_url": "testmealpost.image_url",<br/>
-  "user_id": 1,<br/>
-  "post_type": "meal",<br/>
-  "meal": {<br/>
-      "name": "breakfast",<br/>
-          "foods": [{<br/>
-              "name": "carrot",<br/>
-              "calories": 12<br/>
-          },<br/>
-          {<br/>
-            "name": "",<br/>
-            "calories": 0<br/>
-          } ]<br/>
+  "title": "test meal post title",
+  "description": "test meal post description",
+  "image_url": "testmealpost.image_url",
+  "user_id": 1,
+  "post_type": "meal",
+  "meal": {
+      "name": "breakfast",
+          "foods": [{
+              "name": "carrot",
+              "calories": 12
+          },
+          {
+            "name": "",
+            "calories": 0
+          } ]
     }
  }
  ```
