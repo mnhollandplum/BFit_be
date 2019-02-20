@@ -23,7 +23,7 @@ class User(db.Model):
                     'User', secondary=followers,
                     primaryjoin=(followers.c.follower_id == id),
                     secondaryjoin=(followers.c.followed_id == id),
-                    backref=db.backref('followers', lazy='dynamic'),
+                    backref=db.backref('following', lazy='dynamic'),
                     lazy='dynamic'
                 )
 
