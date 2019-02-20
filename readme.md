@@ -163,15 +163,15 @@ Exercise
 ####Expected JSON response structure upon successful POST request<br/>
 ```json
 {
-	"title": "Running is the worst!",
-	"description": "But do it anyways!",
-	"image_url": "pumpingiron.png",
-	"user_id": "1",
-	"post_type": "exercise",
-  "muscle_group": "cardio",
-  "name": "Treadmill for days",
-  "weightORTime": "50",
-  "repsORDistance": "5"
+     "title": "Running is the worst!",
+     "description": "But do it anyways!",
+     "image_url": "pumpingiron.png",
+     "user_id": "1",
+     "post_type": "exercise",
+     "muscle_group": "cardio",
+     "name": "Treadmill for days",
+     "weightORTime": "50",
+     "repsORDistance": "5"
 }
 ```
 
