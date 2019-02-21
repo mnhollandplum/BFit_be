@@ -4,7 +4,7 @@
 ## Functioning Routes, Request Body and Response
 
 ### POST api/v1/users
-
+<hr>
 
 | Object Field       | Type   | Required? | Description |
 |--------------------|--------|-----------|-------------|
@@ -38,18 +38,20 @@
 }
 ```
 ### PUT api/v1/users/:id/edit
+<hr>
 
 #### Expected JSON request structure
 ```json
-{"avatar":"new avatar"}
+{"avatar":"new_avatar.png"}
 ```
 
 #### Expected JSON response structure upon successful GET request
 ```json
-{"avatar":"new avatar"}
+{"avatar":"new_avatar.png"}
 ```
 
 ### GET api/v1/users
+<hr>
 
 #### Expected JSON response structure upon successful GET request
 ```json
@@ -92,7 +94,8 @@ Ex: localhost:5000/api/v1/users?username=jane
 ]
 ```
 
-### GET api/v1/users/:username 
+### GET api/v1/users/:id
+<hr>
 
 #### Expected JSON response structure upon successful GET request
 ```json
@@ -106,21 +109,34 @@ Ex: localhost:5000/api/v1/users?username=jane
 }
 ```
 
-### GET api/v1/users/:id 
+### GET api/v1/users/:id/following
+<hr>
 
 #### Expected JSON response structure upon successful GET request
 ```json
-{
-    "user": {
-        "avatar": "image.com",
-        "email": "email@email.com",
-        "id": 1,
-        "username": "username1"
+[
+    {
+        "users": {
+	    "avatar": "image.com",
+	    "email": "email@email.com",
+	    "id": 1,
+	    "username": "username1"
+        }
+    },
+    {
+        "users": {
+            "avatar": "image2.com",
+            "email": "email2@email.com",
+            "id": 2,
+            "username": "username2"
+        }
     }
-}
+]
 ```
+
 
 ### POST api/v1/posts for a meal post_type
+<hr>
 
 #### Post
 
@@ -149,7 +165,7 @@ Ex: localhost:5000/api/v1/users?username=jane
 | `calories`        | integer| no        | The calories must be an integer.
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
-#### Expected JSON request structure upon successful POST request
+#### Expected JSON request structure
 
 ```json
 {
@@ -172,7 +188,8 @@ Ex: localhost:5000/api/v1/users?username=jane
  }
  ```
 
-#### Expected JSON response structure upon successful POST request<br/>
+#### Expected JSON response structure upon successful POST request
+
 ```json
 {
    "post": {
@@ -205,6 +222,7 @@ Ex: localhost:5000/api/v1/users?username=jane
 ```
 
 ### POST api/v1/posts for a exercise post_type
+<hr>
 
 #### Post
 
@@ -230,7 +248,8 @@ Ex: localhost:5000/api/v1/users?username=jane
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
 
-#### Expected JSON request structure upon successful POST request<br/>
+#### Expected JSON request structure
+
 ```json
 {
      "title": "Running is the worst!",
@@ -270,9 +289,10 @@ Ex: localhost:5000/api/v1/users?username=jane
 ```
 
 
-## GET api/v1/users/<id>/posts<br/>
+## GET api/v1/users/:id/posts
+<hr>
 	
-#### Expected JSON response structure upon successful GET request<br/>
+#### Expected JSON response structure upon successful GET request
 	
 ```json
 [
@@ -354,6 +374,5 @@ Ex: localhost:5000/api/v1/users?username=jane
 ## WIP
 
 - GET api/v1/users/<id>/followers
-- GET api/v1/users/<id>/following
 - GET api/v1/users/<id>/feed
 
