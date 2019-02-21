@@ -1,8 +1,9 @@
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/mnhollandplum/BFit_be.svg?columns=all)](https://waffle.io/mnhollandplum/BFit_be)
 
 [![Build Status](https://travis-ci.org/mnhollandplum/BFit_be.svg?branch=master)](https://travis-ci.org/mnhollandplum/BFit_be)
+## Functionality
 
-## Application  
+## Contributing  
 
 ### Prerequisites/ Dependencies
  This project assumes you have installed:
@@ -26,6 +27,6 @@ View all routes, requests and responses [here](./api_doc.md)
 ## View Front End Implementation
 
 ### Contributors
-[Tim Fell](https://github.com/tmaria17)
+[Tim Fell](https://github.com/TimothyFell)
 
 [Nikki Holland-Plum](https://github.com/mnhollandplum)
