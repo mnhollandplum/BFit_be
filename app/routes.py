@@ -359,20 +359,22 @@ def get_feed(id):
     following = user.followed.all()
     post_obs = []
 
-    for user in following:
-        post_obs = post_obs + user.posts.all()
-
+    for followed in following:
+        post_obs = post_obs + followed.posts.all()
     sorted_obs = sorted(post_obs, key=lambda post: post.date , reverse=True)
     all_posts = []
+
     if sorted_obs == []:
         return bad_request("The users {} is following have no posts".format(user.username))
     else:
         for post in sorted_obs:
-            if user.posts.all() != [] and post.meals.all() == []:
+            if followed.posts.all() != [] and post.meals.all() == []:
+                post_user = User.query.filter_by(id=post.user_id).first()
                 exercise = Exercise.query.filter_by(post_id=post.id).first()
+                embed()
                 response = {
-                    'username': user.username,
-                    'avatar': user.avatar,
+                    'username': post_user.username,
+                    'avatar': post_user.avatar,
                     'post': {
                         'id': post.id,
                         'title': post.title,
@@ -393,12 +395,13 @@ def get_feed(id):
                     }
                 }
                 all_posts.append(response)
-            elif user.posts.all() != [] and post.exercises.all() == []:
+            elif followed.posts.all() != [] and post.exercises.all() == []:
+                post_user = User.query.filter_by(id=post.user_id).first()
                 meal = Meal.query.filter_by(post_id=post.id).first()
                 food_obs = meal.foods
                 response = {
-                    'username': user.username,
-                    'avatar': user.avatar,
+                    'username': post_user.username,
+                    'avatar': post_user.avatar,
                     'post': {
                         'id': post.id,
                         'title': post.title,
