@@ -195,55 +195,52 @@ def get_user_posts(id):
     user = User.query.filter_by(id=id).first_or_404()
     post_obs = Post.query.filter_by(user_id=id)
     all_posts = []
-    if post_obs.all() == []:
-        return bad_request("{} has no posts".format(user.username))
-    else:
-        for post in post_obs:
-            if post.meals.all() == []:
-                exercise = Exercise.query.filter_by(post_id=post.id).first()
-                response = {
-                'username': user.username,
-                    'post': {
-                        'id': post.id,
-                        'title': post.title,
-                        'description': post.description,
-                        'image_url': post.image_url,
-                        'user_id': post.user_id,
-                        'date': post.date,
-                        'post_type': 'exercise',
-                        'exercise': {
-                            'id': exercise.id,
-                            'muscle_group': exercise.muscle_group,
-                            'name': exercise.name,
-                            'reps': exercise.reps,
-                            'weight': exercise.weight,
-                            'time': exercise.time,
-                            'distance': exercise.distance
-                        }
+    for post in post_obs:
+        if post.meals.all() == []:
+            exercise = Exercise.query.filter_by(post_id=post.id).first()
+            response = {
+            'username': user.username,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'exercise',
+                    'exercise': {
+                        'id': exercise.id,
+                        'muscle_group': exercise.muscle_group,
+                        'name': exercise.name,
+                        'reps': exercise.reps,
+                        'weight': exercise.weight,
+                        'time': exercise.time,
+                        'distance': exercise.distance
                     }
                 }
-                all_posts.append(response)
-            elif post.exercises.all() == []:
-                meal = Meal.query.filter_by(post_id=post.id).first()
-                food_obs = meal.foods
-                response = {
-                'username': user.username,
-                    'post': {
-                        'id': post.id,
-                        'title': post.title,
-                        'description': post.description,
-                        'image_url': post.image_url,
-                        'user_id': post.user_id,
-                        'date': post.date,
-                        'post_type': 'meal',
-                        'meal': {
-                            'id': meal.id,
-                            'name': meal.name,
-                            'foods': get_foods(food_obs)
-                        }
+            }
+            all_posts.append(response)
+        elif post.exercises.all() == []:
+            meal = Meal.query.filter_by(post_id=post.id).first()
+            food_obs = meal.foods
+            response = {
+            'username': user.username,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'meal',
+                    'meal': {
+                        'id': meal.id,
+                        'name': meal.name,
+                        'foods': get_foods(food_obs)
                     }
                 }
-                all_posts.append(response)
+            }
+            all_posts.append(response)
 
 
     return jsonify(all_posts)
@@ -381,59 +378,56 @@ def get_feed(id):
     sorted_obs = sorted(post_obs, key=lambda post: post.date , reverse=True)
     all_posts = []
 
-    if sorted_obs == []:
-        return bad_request("The users {} is following have no posts".format(user.username))
-    else:
-        for post in sorted_obs:
-            if followed.posts.all() != [] and post.meals.all() == []:
-                post_user = User.query.filter_by(id=post.user_id).first()
-                exercise = Exercise.query.filter_by(post_id=post.id).first()
-                response = {
-                    'username': post_user.username,
-                    'avatar': post_user.avatar,
-                    'post': {
-                        'id': post.id,
-                        'title': post.title,
-                        'description': post.description,
-                        'image_url': post.image_url,
-                        'user_id': post.user_id,
-                        'date': post.date,
-                        'post_type': 'exercise',
-                        'exercise': {
-                            'id': exercise.id,
-                            'muscle_group': exercise.muscle_group,
-                            'name': exercise.name,
-                            'reps': exercise.reps,
-                            'weight': exercise.weight,
-                            'time': exercise.time,
-                            'distance': exercise.distance
-                        }
+    for post in sorted_obs:
+        if followed.posts.all() != [] and post.meals.all() == []:
+            post_user = User.query.filter_by(id=post.user_id).first()
+            exercise = Exercise.query.filter_by(post_id=post.id).first()
+            response = {
+                'username': post_user.username,
+                'avatar': post_user.avatar,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'exercise',
+                    'exercise': {
+                        'id': exercise.id,
+                        'muscle_group': exercise.muscle_group,
+                        'name': exercise.name,
+                        'reps': exercise.reps,
+                        'weight': exercise.weight,
+                        'time': exercise.time,
+                        'distance': exercise.distance
                     }
                 }
-                all_posts.append(response)
-            elif followed.posts.all() != [] and post.exercises.all() == []:
-                post_user = User.query.filter_by(id=post.user_id).first()
-                meal = Meal.query.filter_by(post_id=post.id).first()
-                food_obs = meal.foods
-                response = {
-                    'username': post_user.username,
-                    'avatar': post_user.avatar,
-                    'post': {
-                        'id': post.id,
-                        'title': post.title,
-                        'description': post.description,
-                        'image_url': post.image_url,
-                        'user_id': post.user_id,
-                        'date': post.date,
-                        'post_type': 'meal',
-                        'meal': {
-                            'id': meal.id,
-                            'name': meal.name,
-                            'foods': get_foods(food_obs)
-                        }
+            }
+            all_posts.append(response)
+        elif followed.posts.all() != [] and post.exercises.all() == []:
+            post_user = User.query.filter_by(id=post.user_id).first()
+            meal = Meal.query.filter_by(post_id=post.id).first()
+            food_obs = meal.foods
+            response = {
+                'username': post_user.username,
+                'avatar': post_user.avatar,
+                'post': {
+                    'id': post.id,
+                    'title': post.title,
+                    'description': post.description,
+                    'image_url': post.image_url,
+                    'user_id': post.user_id,
+                    'date': post.date,
+                    'post_type': 'meal',
+                    'meal': {
+                        'id': meal.id,
+                        'name': meal.name,
+                        'foods': get_foods(food_obs)
                     }
                 }
-                all_posts.append(response)
+            }
+            all_posts.append(response)
 
     return jsonify(all_posts)
 
