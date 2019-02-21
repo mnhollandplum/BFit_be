@@ -1,10 +1,10 @@
 # BFit API
 
 
-## Routes, Request Body and Response<br/>
-### Functioning<br/>
+## Functioning Routes, Request Body and Response
 
-#### POST api/v1/users<br/>
+### POST api/v1/users
+
 
 | Object Field       | Type   | Required? | Description |
 |--------------------|--------|-----------|-------------|
@@ -14,7 +14,8 @@
 | `avatar`           | string | no        | The avatar image is stored as a url.
 | `password`         | string | yes       | The password is hashed for secure storage.
 
-#### Expected JSON request structure <br/>
+#### Expected JSON request structure
+
 ```json
 {
   "username":"username1",
@@ -24,7 +25,8 @@
 }
 ```
 
-#### Expected JSON response structure upon successful POST request<br/>
+#### Expected JSON response structure upon successful POST request
+
 ```json
 {
     "user": {
@@ -35,9 +37,9 @@
     }
 }
 ```
-#### PUT api/v1/users/:id/edit
+### PUT api/v1/users/:id/edit
 
-#### Expected JSON request structure upon successful GET request
+#### Expected JSON request structure
 ```json
 {"avatar":"new avatar"}
 ```
@@ -69,7 +71,7 @@
 ]
 ```
 ##### Optional query param that will match username with similar usernames in database. Key: username Value: username query.
-localhost:5000/api/v1/users?username=jane
+Ex: localhost:5000/api/v1/users?username=jane
 #### Expected JSON response structure upon successful GET request with query.
 ```json
 [
@@ -90,7 +92,7 @@ localhost:5000/api/v1/users?username=jane
 ]
 ```
 
-#### GET api/v1/users/:username 
+### GET api/v1/users/:username 
 
 #### Expected JSON response structure upon successful GET request
 ```json
@@ -104,7 +106,7 @@ localhost:5000/api/v1/users?username=jane
 }
 ```
 
-#### GET api/v1/users/:id 
+### GET api/v1/users/:id 
 
 #### Expected JSON response structure upon successful GET request
 ```json
@@ -118,9 +120,9 @@ localhost:5000/api/v1/users?username=jane
 }
 ```
 
-#### POST api/v1/posts for a meal post_type
-<br/>
-Post<br/>
+### POST api/v1/posts for a meal post_type
+
+#### Post
 
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
@@ -131,14 +133,14 @@ Post<br/>
 | `user_id `        | integer| yes       | The user_id associates the post with the user.
 | `post_type `      | string | yes       | The post_type must be "meal".
 
-Meal<br/>
+#### Meal
 
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
 | `id`              | integer| yes       | The id is automatically created. Do not send in POST.
 | `name`            | string | no        | The name must be under 20 chars.
 
-Foods<br/>
+#### Foods
 
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
@@ -147,7 +149,8 @@ Foods<br/>
 | `calories`        | integer| no        | The calories must be an integer.
 | `post_id`         | integer| yes       | The post_id attributes the exercise to a post.
 
-#### Expected JSON request structure upon successful POST request<br/>
+#### Expected JSON request structure upon successful POST request
+
 ```json
 {
   "title": "test meal post title",
@@ -201,9 +204,9 @@ Foods<br/>
 }
 ```
 
-####POST api/v1/posts for a exercise post_type<br/>
+### POST api/v1/posts for a exercise post_type
 
-Post<br/>
+#### Post
 
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
@@ -214,7 +217,7 @@ Post<br/>
 | `user_id `        | integer| yes       | The user_id associates the post with the user.
 | `post_type `      | string | yes       | The post_type must be "meal".
 
-Exercise
+#### Exercise
 | Object Field      | Type   | Required? | Description |
 |-------------------|--------|-----------|-------------|
 | `id`              | integer| yes       | The id is automatically created. Do not send in POST.
@@ -267,7 +270,7 @@ Exercise
 ```
 
 
-GET api/v1/users/<id>/posts<br/>
+## GET api/v1/users/<id>/posts<br/>
 	
 #### Expected JSON response structure upon successful GET request<br/>
 	
@@ -348,8 +351,9 @@ GET api/v1/users/<id>/posts<br/>
 
 
 
-### WIP<br/>
-GET api/v1/users/<id>/followers<br/>
-GET api/v1/users/<id>/following<br/>
-GET api/v1/users/<id>/feed<br/>
+## WIP
+
+- GET api/v1/users/<id>/followers
+- GET api/v1/users/<id>/following
+- GET api/v1/users/<id>/feed
 
