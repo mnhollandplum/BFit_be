@@ -1,6 +1,9 @@
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/mnhollandplum/BFit_be.svg?columns=all)](https://waffle.io/mnhollandplum/BFit_be)
 
 [![Build Status](https://travis-ci.org/mnhollandplum/BFit_be.svg?branch=master)](https://travis-ci.org/mnhollandplum/BFit_be)
+
+![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
+
 ## Functionality
 
 ## Contributing  
