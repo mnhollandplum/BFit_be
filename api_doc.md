@@ -368,11 +368,156 @@ Ex: localhost:5000/api/v1/users?username=jane
     }
 ]
 ```
-
-
-
-## WIP
-
-- GET api/v1/users/<id>/followers
-- GET api/v1/users/<id>/feed
-
+## GET api/v1/users/:id/feed
+<hr>
+	
+#### Expected JSON response structure upon successful GET request
+```json
+[
+    {
+        "avatar": "56789",
+        "post": {
+            "date": "Wed, 20 Feb 2019 23:59:08 GMT",
+            "description": "This is a meal post",
+            "id": 19,
+            "image_url": "meal.image_url",
+            "meal": {
+                "foods": [
+                    {
+                        "calories": 300,
+                        "id": 26,
+                        "name": "cake"
+                    },
+                    {
+                        "calories": 12,
+                        "id": 27,
+                        "name": "bean"
+                    }
+                ],
+                "id": 9,
+                "name": "breakfast"
+            },
+            "post_type": "meal",
+            "title": "follow meal post",
+            "user_id": 3
+        },
+        "username": "12345"
+    },
+    {
+        "avatar": "qzz7bnuue32ss6zidmbu.jpg",
+        "post": {
+            "date": "Wed, 20 Feb 2019 23:58:36 GMT",
+            "description": "This is Jane's meal post",
+            "id": 18,
+            "image_url": "janesmeal.image_url",
+            "meal": {
+                "foods": [
+                    {
+                        "calories": 300,
+                        "id": 24,
+                        "name": "milkshake"
+                    },
+                    {
+                        "calories": 12,
+                        "id": 25,
+                        "name": "apple"
+                    }
+                ],
+                "id": 8,
+                "name": "lunch"
+            },
+            "post_type": "meal",
+            "title": "Jane's meal post",
+            "user_id": 2
+        },
+        "username": "Jane Doe"
+    },
+    {
+        "avatar": "fzuciwvrum47u3gghdvm.jpg",
+        "post": {
+            "date": "Wed, 20 Feb 2019 23:35:23 GMT",
+            "description": "",
+            "exercise": {
+                "distance": null,
+                "id": 10,
+                "muscle_group": "Abs",
+                "name": "Bicycles",
+                "reps": 5,
+                "time": null,
+                "weight": 4
+            },
+            "id": 17,
+            "image_url": "",
+            "post_type": "exercise",
+            "title": "Bicycles",
+            "user_id": 7
+        },
+        "username": "Salmon"
+    },
+    {
+        "avatar": "fzuciwvrum47u3gghdvm.jpg",
+        "post": {
+            "date": "Wed, 20 Feb 2019 22:11:11 GMT",
+            "description": "",
+            "id": 16,
+            "image_url": "",
+            "meal": {
+                "foods": [
+                    {
+                        "calories": 4,
+                        "id": 19,
+                        "name": "Other things"
+                    },
+                    {
+                        "calories": 5,
+                        "id": 20,
+                        "name": "More things (not salmon)"
+                    },
+                    {
+                        "calories": 0,
+                        "id": 21,
+                        "name": ""
+                    },
+                    {
+                        "calories": 0,
+                        "id": 22,
+                        "name": ""
+                    },
+                    {
+                        "calories": 0,
+                        "id": 23,
+                        "name": ""
+                    }
+                ],
+                "id": 7,
+                "name": "Not salmon"
+            },
+            "post_type": "meal",
+            "title": "Not salmon",
+            "user_id": 7
+        },
+        "username": "Salmon"
+    },
+    {
+        "avatar": "fzuciwvrum47u3gghdvm.jpg",
+        "post": {
+            "date": "Wed, 20 Feb 2019 22:10:42 GMT",
+            "description": "",
+            "exercise": {
+                "distance": null,
+                "id": 9,
+                "muscle_group": "Abs",
+                "name": "Front lever",
+                "reps": 4,
+                "time": null,
+                "weight": 7
+            },
+            "id": 15,
+            "image_url": "",
+            "post_type": "exercise",
+            "title": "Front lever",
+            "user_id": 7
+        },
+        "username": "Salmon"
+    }
+```
