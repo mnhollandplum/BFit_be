@@ -74,7 +74,7 @@ def add_user():
 
 
 # user login
-@app.route('/api/v1/login', methods=['GET'])
+@app.route('/api/v1/login', methods=['POST'])
 def user_login():
     login_data = json.loads(request.get_data())
     user = User.query.filter_by(username=login_data['user']['username'].lower()).first()
