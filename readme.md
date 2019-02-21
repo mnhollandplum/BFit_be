@@ -17,12 +17,12 @@
 3. Setup the database:
 
 ## API Documentation
-View all routes, requests and responses [here](./api_doc.md)
+View all routes, requests, responses, and errors [here](./api_doc.md)
 
 ## MVP Schema<br/>
 ![Schema](./Schema.png)<br/>
 
-## Known Issues
+## Next Steps/Known Issues
 
 ## View Front End Implementation
 
