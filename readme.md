@@ -4,10 +4,8 @@
 
 ![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
 
-## Functionality
-
 ## Contributing  
-If you'd like to contribute to this school project, fork this repository then follow the installation instructions below. Once you've finished the feature or fixes you wish to contribute, send us a pull request and one of us will review it before merging. If we have any suggestions, comments or questions we will leave them as comments on you pull request. Thank you in advance.
+If you'd like to contribute to this project, fork this repository then follow the installation instructions below. Once you've finished the feature or fixes you wish to contribute, send us a pull request and one of us will review it before merging. If we have any suggestions, comments or questions we will leave them as comments on you pull request. Thank you in advance.
 
 ### Prerequisites/ Dependencies
  This project assumes you have installed:
