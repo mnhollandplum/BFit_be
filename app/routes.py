@@ -72,6 +72,23 @@ def add_user():
         }
         return jsonify(response)
 
+
+# user login
+@app.route('/api/v1/login', methods=['GET'])
+def user_login():
+    login_data = json.loads(request.get_data())
+    user = User.query.filter_by(username=login_data['user']['username'].lower()).first()
+    if user:
+        if user.password == login_data['user']['password']:
+            return jsonify({
+                'user_id': user.id
+            })
+        else:
+            return bad_request("Your username or password was incorrect, try again.")
+    else:
+        return bad_request("Your username or password was incorrect, try again.")
+
+
 #edit a user
 @app.route('/api/v1/users/<id>/edit', methods=['PUT'])
 def update_user(id):
@@ -371,7 +388,6 @@ def get_feed(id):
             if followed.posts.all() != [] and post.meals.all() == []:
                 post_user = User.query.filter_by(id=post.user_id).first()
                 exercise = Exercise.query.filter_by(post_id=post.id).first()
-                embed()
                 response = {
                     'username': post_user.username,
                     'avatar': post_user.avatar,
